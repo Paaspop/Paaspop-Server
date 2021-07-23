@@ -9,8 +9,21 @@ const debug = process.env.DEBUG == "true";
 module.exports = function (app) {
 	app.ws('/', {
 		idleTimeout: 999999999,
+		upgrade: (res, req, context) => {
+			console.log('An Http connection wants to become WebSocket, URL: ' + req.getUrl() + '!');
+			/* This immediately calls open handler, you must not use res after this call */
+			res.upgrade({
+					url: req.getUrl(),
+					req: req
+				},
+				/* Spell these correctly */
+				req.getHeader('sec-websocket-key'),
+				req.getHeader('sec-websocket-protocol'),
+				req.getHeader('sec-websocket-extensions'),
+				context);
+		},
 		open: (ws, req) => {
-			let client = funcs.getHeaderObject(req);
+			let client = funcs.getHeaderObject(ws.req);
 			middleware.game_running().then((game) => {
 				middleware.ws_check_role(ws, client).then(role => {
 					console.log(role);
@@ -42,7 +55,7 @@ module.exports = function (app) {
 					} else {
 						ws.close();
 					}
-				})
+			})
 
 			});
 		},
