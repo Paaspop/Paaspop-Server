@@ -8,7 +8,7 @@ const debug = process.env.DEBUG == "true";
 
 module.exports = function (app) {
 	app.ws('/', {
-		idleTimeout: 999999999,
+		idleTimeout: 1000000000,
 		upgrade: (res, req, context) => {
 			console.log('An Http connection wants to become WebSocket, URL: ' + req.getUrl() + '!');
 			/* This immediately calls open handler, you must not use res after this call */
@@ -22,8 +22,14 @@ module.exports = function (app) {
 				req.getHeader('sec-websocket-extensions'),
 				context);
 		},
-		open: (ws, req) => {
+		open: (ws) => {
+			if (!ws.req) {
+				ws.close();
+			}
 			let client = funcs.getHeaderObject(ws.req);
+			if (!client) {
+				ws.close();
+			}
 			middleware.game_running().then((game) => {
 				middleware.ws_check_role(ws, client).then(role => {
 					console.log(role);
@@ -35,9 +41,9 @@ module.exports = function (app) {
 					} else if (role == "game") {
 						ws.role = "game";
 						ws.subscribe('game_channel');
-						if (debug & game != undefined)
+						if (debug && game != undefined)
 							console.log("Game joinend user channel '/game' for the game: ", game)
-						if (debug & game == undefined)
+						if (debug && game == undefined)
 							console.log("Game joinend user channel '/game' (no game running")
 						ws.publish('admin', "User joined user channel: ", game);
 					} else if (game != undefined) {
