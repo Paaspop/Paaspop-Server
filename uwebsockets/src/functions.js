@@ -7,6 +7,8 @@ module.exports = {
 	},
 	getHeaderObject: function (req) {
 		let user = {};
+		if (!req)
+			return false;
 		req.forEach((k, v) => {
 			if (v.includes(', ') && k == 'sec-websocket-protocol') {
 				user[v.split(', ')[0]] = v.split(', ')[1];

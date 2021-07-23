@@ -13,7 +13,7 @@
     "dotenv": "^8.2.0",
     "node-persist": "^3.0.5",
     "nodemon": "^2.0.2",
-    "uWebSockets.js": "uNetworking/uWebSockets.js#v17.3.0"
+    "uWebSockets.js": "uNetworking/uWebSockets.js#v19.3.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.8.4",
