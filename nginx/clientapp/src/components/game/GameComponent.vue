@@ -208,6 +208,7 @@ export default {
     },
     SocketReconnectError(reconnectError) {
       console.log("Reconnect error: ", reconnectError);
+      this.stopGame(); 
     }
   }
 };

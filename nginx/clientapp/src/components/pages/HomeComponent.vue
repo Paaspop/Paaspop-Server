@@ -18,6 +18,7 @@
           <transition name="fade">
             <span
               class="game-status"
+              data-shadow='dang!'
               v-if="!game_found"
             >
               Geen spel gaande...
@@ -133,13 +134,65 @@ export default {
   margin: 0 auto;
   text-align: center;
   font-size: 60px;
-  width: 60%;
+  width: 80%;
   display: block;
   font-family: TTTunnels-Black;
-  line-height: 47px;
+  line-height: 60px;
   text-transform: uppercase;
   position: absolute;
 }
+
+.game-status {
+  color: #fff;
+  font-weight: bold;
+  // font-family: Helvetica;
+  text-align: center;
+  text-shadow: 
+    0 1px 0 #ccc, 
+    0 2px 0 #c9c9c9, 
+    0 3px 0 #bbb, 
+    0 4px 0 #b9b9b9, 
+    0 5px 0 #aaa, 
+    0 6px 1px rgba(0, 0, 0, 0.233), 
+    0 0 5px rgba(0,0,0,.1), 
+    0 1px 3px rgba(0, 0, 0, 0.438), 
+    0 3px 5px rgba(0,0,0,.2), 
+    0 5px 10px rgba(0,0,0,.25), 
+    0 10px 10px rgba(0, 0, 0, 0.397), 
+    0 20px 20px rgba(0, 0, 0, 0.486);
+}
+
+// .game-status {
+//   display: inline-block;
+//   color: white;
+//   text-shadow: .03em .03em 0 hsla(230,40%,50%,1);
+//   }
+//   .game-status:after {
+//     content: attr(data-shadow);
+//     position: absolute;
+//     top: .06em; left: .06em;
+//     z-index: -1;
+//     text-shadow: none;
+//     background-image:
+//       linear-gradient(
+//         45deg,
+//         transparent 45%,
+//         hsla(48,20%,90%,1) 45%,
+//         hsla(48,20%,90%,1) 55%,
+//         transparent 0
+//         );
+//     background-size: .05em .05em;
+//     -webkit-background-clip: text;
+//     -webkit-text-fill-color: transparent;
+  
+//     animation: shad-anim 15s linear infinite;
+//     }
+
+// @keyframes shad-anim {
+//   0% {background-position: 0 0}
+//   0% {background-position: 100% -100%}
+// }
+  
 .game-button {
   margin-right: 10px;
   position: absolute;
